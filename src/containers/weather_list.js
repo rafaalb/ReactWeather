@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Chart from '../components/chart';
+import GoogleMap from '../components/google_map';
 
 //export default class WeatherList extends Component{
 class WeatherList extends Component{ // we dont use the export default here because now we are using the connect function
@@ -9,14 +10,13 @@ class WeatherList extends Component{ // we dont use the export default here beca
 		const temps=cityData.list.map(weather=>weather.main.temp);
 		const pressures=cityData.list.map(pressures=>pressures.main.pressure);
 		const humidities=cityData.list.map(humidities=>humidities.main.humidity);
+		const {lon , lat} = cityData.city.coord; // find the coord object and grab the long and lat (es6)
 
 
-		console.log(temps);
+
 		return(
 			<tr key={name}>
-				<td>
-					{name}
-				</td>
+				<td><GoogleMap lon={lon} lat={lat} /></td>
 				<td><Chart data={temps} color="orange" units="K"/></td>
 				<td><Chart data={pressures} color="red" units="hPa"/></td>
 				<td><Chart data={humidities} color="blue" units="%"/></td>
